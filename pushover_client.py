@@ -66,10 +66,11 @@ def _GenerateMessageObject(msg):
   data = {
     "token": FLAGS.token,
     "user": FLAGS.user,
-    "title": FLAGS.title,
     "priority": int(FLAGS.important),
     "message": msg,
   }
+  if FLAGS.title is not None:
+    data["title"] = FLAGS.title
   if FLAGS.device is not None:
     data["device"] = FLAGS.device
   return data
