@@ -46,10 +46,12 @@ flags.DEFINE_string("message", None, "Message Body", short_name="M")
 flags.DEFINE_bool("important", False, "Priotiy bit", short_name="I")
 flags.DEFINE_bool("stdin", False, "Read from stdin instead of --message")
 flags.DEFINE_bool("verbose", False, "Increase verbosity", short_name="V")
+# Required flags
+flags.MarkFlagAsRequired("user")
+flags.MarkFlagAsRequired("token")
 
 
 FLAGS = flags.FLAGS
-
 
 
 HEADERS = {
