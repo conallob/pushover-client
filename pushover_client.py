@@ -31,7 +31,7 @@
 __author__ = "Conall O'Brien (conall@conall.net)"
 
 
-__version__ = 0.1
+__version__ = 0.2
 
 import gflags as flags
 import requests
@@ -45,6 +45,8 @@ flags.DEFINE_string("device", None, "Target Device. Default: All",
 flags.DEFINE_string("message", None, "Message Body", short_name="M")
 flags.DEFINE_bool("important", False, "Priotiy bit", short_name="I")
 flags.DEFINE_bool("stdin", False, "Read from stdin instead of --message")
+flags.DEFINE_bool("nagios", False, "Nagios mode. Conditionally sets "
+                  "important bit")
 flags.DEFINE_bool("verbose", False, "Increase verbosity", short_name="V")
 # Required flags
 flags.MarkFlagAsRequired("user")
@@ -63,10 +65,14 @@ class FlagsError(Exception):
 
 
 def _GenerateMessageObject(msg):
+  if FLAGS.nagios:
+    priority = "CRITICAL" in msg
+  else:
+    priority = FLAGS.important
   data = {
     "token": FLAGS.token,
     "user": FLAGS.user,
-    "priority": int(FLAGS.important),
+    "priority": int(priority),
     "message": msg,
   }
   if FLAGS.title is not None:
