@@ -37,12 +37,15 @@ import gflags as flags
 import requests
 import sys
 
-flags.DEFINE_string("user", None, "Pushover.net UserID", short_name="U")
-flags.DEFINE_string("token", None, "Pushover.net Token", short_name="Z")
-flags.DEFINE_string("title", None, "Message Title", short_name="T")
 flags.DEFINE_string("device", None, "Target Device. Default: All",
                     short_name="D")
 flags.DEFINE_string("message", None, "Message Body", short_name="M")
+flags.DEFINE_string("pushover_api", 
+                    "https://api.pushover.net/1/messages",
+                    "Pushover API URL", short_name="A")
+flags.DEFINE_string("title", None, "Message Title", short_name="T")
+flags.DEFINE_string("token", None, "Pushover.net Token", short_name="Z")
+flags.DEFINE_string("user", None, "Pushover.net UserID", short_name="U")
 flags.DEFINE_bool("important", False, "Priotiy bit", short_name="I")
 flags.DEFINE_bool("stdin", False, "Read from stdin instead of --message")
 flags.DEFINE_bool("nagios", False, "Nagios mode. Conditionally sets "
@@ -97,8 +100,7 @@ def app():
   if FLAGS.verbose:
     print data
   # TODO(conall): Add some error handling here
-  api = requests.post("https://api.pushover.net/1/messages",
-                      headers=HEADERS, data=data)
+  api = requests.post(FLAGS.pushover_api, headers=HEADERS, data=data)
   if FLAGS.verbose:
     print api.status_code
 
