@@ -1,4 +1,4 @@
-#!/usr/local/bin/python2.7
+#!/usr/local/bin/python3.6
 # vim:ts=2:sw=2:expandtab:ft=python:fileencoding=utf-8
 
 # $Id$
@@ -31,7 +31,7 @@
 __author__ = "Conall O'Brien (conall@conall.net)"
 
 
-__version__ = 0.2
+__version__ = 1.0
 
 import gflags as flags
 import requests
@@ -98,11 +98,11 @@ def app():
     msg = FLAGS.message
   data = _GenerateMessageObject(msg)
   if FLAGS.verbose:
-    print data
+    print(data)
   # TODO(conall): Add some error handling here
   api = requests.post(FLAGS.pushover_api, headers=HEADERS, data=data)
   if FLAGS.verbose:
-    print api.status_code
+    print(api.status_code)
 
 
 if __name__ == "__main__":
