@@ -3,7 +3,7 @@
 
 # $Id$
 
-# Copyright (c) 2012, Conall O'Brien
+# Copyright (c) 2012 - 2019, Conall O'Brien
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
